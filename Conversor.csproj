@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType><TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF><UseWindowsForms>true</UseWindowsForms><Nullable>enable</Nullable>
+    <!-- WPF owns per-monitor DPI through the manifest. WinForms is only used for the tray. -->
+    <NoWarn>$(NoWarn);WFO0003</NoWarn>
+    <ImplicitUsings>disable</ImplicitUsings><ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>Conversor</AssemblyName><Version>0.3.1</Version><StartupObject>Conversor.Program</StartupObject>
+    <DefaultItemExcludes>$(DefaultItemExcludes);engines/**;downloads/**;tools/**;dist/**;tests/results/**</DefaultItemExcludes>
+    <ApplicationIcon Condition="Exists('assets\conversor.ico')">assets\conversor.ico</ApplicationIcon>
+    <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup><Compile Remove="tests\**;cli\**"/><Content Include="worker\**" Exclude="worker\__pycache__\**" CopyToOutputDirectory="PreserveNewest"/><Content Include="assets\**" CopyToOutputDirectory="PreserveNewest"/><Content Include="engines.json" CopyToOutputDirectory="PreserveNewest" Condition="Exists('engines.json')"/></ItemGroup>
+</Project>

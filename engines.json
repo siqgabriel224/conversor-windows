@@ -1,0 +1,70 @@
+{
+  "python": {
+    "path": "engines\\python\\python.exe",
+    "preparedAt": "2026-10-25T22:37:11.4834354-03:00",
+    "sha256": "4ACBED6DD1C744B0376E3B1CF57CE906F9DC9E95E68824584C8099A63025A3C3",
+    "source": "https://www.python.org/ftp/python/3.12.10/python-3.12.10-embed-amd64.zip"
+  },
+  "sevenzip": {
+    "path": "engines\\7zip\\Files\\7-Zip\\7z.exe",
+    "preparedAt": "2026-10-25T22:36:54.4147127-03:00",
+    "sha256": "3FE4AB99FA15629C652944309A2B2BC6E41FC933FC6B63F5DF1EBCF3AEA68263",
+    "source": "https://github.com/ip7z/7zip/releases/download/26.05/7z2605-x64.msi"
+  },
+  "magick": {
+    "path": "engines\\imagemagick\\magick.exe",
+    "preparedAt": "2026-10-25T22:37:16.4914217-03:00",
+    "sha256": "52CC6A441C7884F5FF4274B410C9B90C4B7D54245DCDF4D32988BB4E4DF4E5D1",
+    "source": "https://github.com/ImageMagick/ImageMagick/releases/download/7.1.2-34/ImageMagick-7.1.2-34-portable-Q16-x64.7z"
+  },
+  "ffmpeg": {
+    "preparedAt": "2026-10-25T22:44:27.3733875-03:00",
+    "source": "https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip",
+    "sha256": "60F467265B1E312373DBCD92200C2618A74850F98D3D078E94296BB3FA2047BA",
+    "path": "engines\\ffmpeg\\ffmpeg-9.0.2-essentials_build\\bin\\ffmpeg.exe"
+  },
+  "libreoffice": {
+    "preparedAt": "2026-10-25T22:50:40.0592543-03:00",
+    "source": "https://download.documentfoundation.org/libreoffice/stable/26.8.1/win/x86_64/LibreOffice_26.8.1_Win_x86-64.msi",
+    "sha256": "C6298B10CFA1748BCBEDAD94C62CE771E240E5021BFD6D7A967CD571B04B5312",
+    "path": "engines\\libreoffice\\program\\soffice.exe"
+  },
+  "ghostscript": {
+    "preparedAt": "2026-10-25T22:50:47.8223789-03:00",
+    "source": "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10080/gs10080w64.exe",
+    "sha256": "52A91B8BF09298788D7A57B9206127026C23EACD75405F0A131E26DC381DCE50",
+    "path": "engines\\ghostscript\\bin\\gswin64c.exe"
+  },
+  "pandoc": {
+    "preparedAt": "2026-10-25T22:50:51.6590767-03:00",
+    "source": "https://github.com/jgm/pandoc/releases/download/3.12.1/pandoc-3.12.1-windows-x86_64.zip",
+    "sha256": "6EF431CB20B2C24A0371FC19200DC49D452BE54B1B5C9239F3462841EF53E587",
+    "path": "engines\\pandoc\\pandoc-3.12.1\\pandoc.exe"
+  },
+  "calibre": {
+    "sha256": "A91EA9B26AF6CD057D8B193B86EDB66D1535F7C5CB0A106965FA74F8168A6BD5",
+    "source": "https://github.com/kovidgoyal/calibre/releases/download/v9.17.0/calibre-64bit-9.17.0.msi",
+    "preparedAt": "2026-10-25T23:04:18.7309399-03:00",
+    "path": "engines\\calibre-msi\\PFiles64\\Calibre2\\ebook-convert.exe"
+  },
+  "oda": {
+    "sha256": "0E3FAC3B3C2486CC40BF1D13545EB422786AA5623C90F0B72FCF081085212AAB",
+    "source": "https://www.opendesign.com/guestfiles/get?filename=ODAFileConverter_QT6_vc16_amd64dll.msi",
+    "preparedAt": "2026-10-25T23:05:20.5525428-03:00",
+    "path": "engines\\oda\\ODAFileConverter.exe"
+  },
+  "ytdlp": {
+    "path": "engines\\python\\Lib\\site-packages\\yt_dlp\\__init__.py",
+    "preparedAt": "2026-10-26T17:11:25.3935329-03:00",
+    "version": "2026.10.21",
+    "sha256": "AA2C9CF5A6F2E1D97EFB6EE13DDCE83CACCE4BEF7D6BDC15E5B5F53AF90BB902",
+    "source": "https://pypi.org/project/yt-dlp/2026.10.21/"
+  },
+  "deno": {
+    "path": "engines\\deno\\deno.exe",
+    "preparedAt": "2026-10-26T17:11:25.5281725-03:00",
+    "version": "2.9.8",
+    "sha256": "924397800533D3EB0ED0C889B20AD70E18B970D93ACD8135BC043F425E528266",
+    "source": "https://github.com/denoland/deno/releases/download/v2.9.8/deno-x86_64-pc-windows-msvc.zip"
+  }
+}

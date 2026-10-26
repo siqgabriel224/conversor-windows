@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="Conversor.MainWindow" Title="Conversor" Width="1120" Height="780" MinWidth="940" MinHeight="660" WindowStartupLocation="CenterScreen" Background="#10131B" Foreground="#EAF0F7" FontFamily="Segoe UI" FontSize="14" AllowDrop="True" Drop="Files_Drop" DragOver="Files_DragOver">
+    <Window.Resources>
+        <SolidColorBrush x:Key="Accent" Color="#70E0BC"/>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#EAF0F7"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#242D3C"/>
+            <Setter Property="Foreground" Value="#EAF0F7"/>
+            <Setter Property="Padding" Value="15,10"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="B" Background="{TemplateBinding Background}" CornerRadius="9" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="B" Property="Opacity" Value="0.8"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="B" Property="Opacity" Value="0.35"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#101720"/>
+            <Setter Property="Foreground" Value="#EAF0F7"/>
+            <Setter Property="CaretBrush" Value="#70E0BC"/>
+            <Setter Property="BorderBrush" Value="#354154"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="#242D3C"/>
+            <Setter Property="Foreground" Value="#EAF0F7"/>
+            <Setter Property="Padding" Value="12,9"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton x:Name="Toggle" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" IsChecked="{Binding IsDropDownOpen,RelativeSource={RelativeSource TemplatedParent},Mode=TwoWay}" BorderThickness="0">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="{TemplateBinding Background}" CornerRadius="8" Padding="12,9">
+                                            <Grid>
+                                                <ContentPresenter HorizontalAlignment="Left"/>
+                                                <TextBlock Text="⌄" HorizontalAlignment="Right"/>
+                                            </Grid>
+                                        </Border>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                                <ContentPresenter Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" Margin="0,0,25,0"/>
+                            </ToggleButton>
+                            <Popup x:Name="PART_Popup" IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" AllowsTransparency="True">
+                                <Border Background="#242D3C" BorderBrush="#43536B" BorderThickness="1" MinWidth="{Binding ActualWidth,RelativeSource={RelativeSource TemplatedParent}}" MaxHeight="320">
+                                    <ScrollViewer>
+                                        <ItemsPresenter/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Foreground" Value="#EAF0F7"/>
+            <Setter Property="Padding" Value="12,9"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border x:Name="B" Padding="{TemplateBinding Padding}" Background="Transparent">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="B" Property="Background" Value="#3D5262"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="#EAF0F7"/>
+            <Setter Property="Margin" Value="0,10,0,10"/>
+        </Style>
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="#151C27"/>
+            <Setter Property="Foreground" Value="#EAF0F7"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        </Style>
+        <Style TargetType="ListBoxItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="Foreground" Value="#EAF0F7"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="B" Background="Transparent" Padding="{TemplateBinding Padding}" CornerRadius="7">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="B" Property="Background" Value="#304353"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="B" Property="BorderBrush" Value="#70E0BC"/>
+                                <Setter TargetName="B" Property="BorderThickness" Value="1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Card" TargetType="Border">
+            <Setter Property="Background" Value="#191F2B"/>
+            <Setter Property="CornerRadius" Value="14"/>
+            <Setter Property="Padding" Value="22"/>
+            <Setter Property="Margin" Value="0,0,0,18"/>
+        </Style>
+        <Style x:Key="Muted" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#91A1B8"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style x:Key="Section" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#EAF0F7"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,0,0,14"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="205"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Border Background="#151A24" Padding="22,30">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top">
+                    <TextBlock Text="↔" Foreground="{StaticResource Accent}" FontSize="46"/>
+                    <TextBlock Text="Conversor" FontSize="27" FontWeight="Bold"/>
+                    <TextBlock Text="Seus arquivos, outros formatos." Style="{StaticResource Muted}" Margin="0,8,0,30"/>
+                    <Button Content="＋   Converter" HorizontalContentAlignment="Left" Tag="0" Click="Navigate" Margin="0,0,0,9"/>
+                    <Button Content="◷   Histórico" Tag="1" Click="Navigate" Margin="0,0,0,9"/>
+                    <Button Content="⇄   Automações" Tag="2" Click="Navigate" Margin="0,0,0,9"/>
+                    <Button Content="⚙   Configurações" Tag="3" Click="Navigate" Margin="0,0,0,9"/>
+                    <Button Content="↓   Baixar vídeos" Tag="4" Click="Navigate" Margin="0,0,0,9"/>
+                    <Button Content="⤢   Redimensionar" Tag="5" Click="Navigate" Margin="0,0,0,9"/>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Bottom">
+                    <TextBlock Text="●  Conversões locais" Foreground="{StaticResource Accent}" Margin="0,0,0,10"/>
+                    <TextBlock Text="Ctrl + arrastar abre os formatos junto ao cursor." Style="{StaticResource Muted}"/>
+                    <TextBlock Text="0.3.1 · Windows" Style="{StaticResource Muted}" Margin="0,20,0,0"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+        <Grid Grid.Column="1" Margin="30,26,30,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Margin="0,0,0,22">
+                <TextBlock x:Name="PageTitle" Text="Converter arquivos" FontSize="29" FontWeight="SemiBold"/>
+                <TextBlock x:Name="PageSubtitle" Text="Arraste, escolha o formato e pronto. Os originais ficam preservados." Style="{StaticResource Muted}" Margin="0,7,0,0"/>
+            </StackPanel>
+            <TabControl x:Name="Pages" Grid.Row="1" Background="Transparent" BorderThickness="0" Padding="0">
+                <TabControl.Resources>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </Style>
+                </TabControl.Resources>
+                <TabItem>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <Border Style="{StaticResource Card}" Padding="24">
+                                <StackPanel>
+                                    <Grid Height="120" Margin="0,0,0,16">
+                                        <Rectangle Stroke="#40576C" StrokeDashArray="5,4" RadiusX="10" RadiusY="10" Fill="#141C27"/>
+                                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <TextBlock Text="↓" FontSize="28" Foreground="{StaticResource Accent}" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="Solte seus arquivos aqui" FontSize="19" FontWeight="SemiBold"/>
+                                            <TextBlock Text="ou use o botão Adicionar arquivos" Style="{StaticResource Muted}" HorizontalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Grid>
+                                    <DockPanel Margin="0,0,0,12">
+                                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                                            <Button Content="↑" Click="MoveUp" Padding="12,7"/>
+                                            <Button Content="↓" Click="MoveDown" Padding="12,7"/>
+                                            <Button Content="Remover" Click="RemoveFile" Padding="12,7"/>
+                                        </StackPanel>
+                                        <Button Content="＋ Adicionar arquivos" Click="AddFiles" HorizontalAlignment="Left"/>
+                                    </DockPanel>
+                                    <ListBox x:Name="InputFiles" Height="100" SelectionMode="Extended"/>
+                                    <TextBlock x:Name="SelectionInfo" Text="Nenhum arquivo selecionado" Style="{StaticResource Muted}" Margin="0,10,0,14"/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="18"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel>
+                                            <TextBlock Text="Formato de saída" Margin="0,0,0,8"/>
+                                            <ComboBox x:Name="TargetFormat" DisplayMemberPath="Label" SelectedValuePath="Id"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2">
+                                            <TextBlock Text="Largura máxima (imagens/vídeos)" Margin="0,0,0,8"/>
+                                            <TextBox x:Name="ImageWidth" Text="0" ToolTip="0 mantém a dimensão original"/>
+                                        </StackPanel>
+                                    </Grid>
+                                    <TextBlock Text="Páginas de PDF (vazio = todas)" Margin="0,14,0,8"/>
+                                    <TextBox x:Name="PdfPages" ToolTip="Exemplo: 1-3,5"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                                        <Button x:Name="ConvertButton" Content="Converter arquivos  →" Background="{StaticResource Accent}" Foreground="#10251F" FontWeight="SemiBold" Click="ConvertFiles"/>
+                                        <Button Content="Juntar PDFs" Click="MergePdf"/>
+                                        <Button Content="Limpar seleção" Click="ClearFiles"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                            <TextBlock x:Name="RecentSummary" Style="{StaticResource Muted}" Text="Acompanhe as conversões na aba Histórico."/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                            <Button Content="Abrir resultado" Click="OpenResult"/>
+                            <Button Content="Abrir pasta" Click="OpenFolder"/>
+                            <Button Content="Cancelar" Click="CancelSelected"/>
+                            <Button Content="Limpar concluídos" Click="ClearHistory"/>
+                        </StackPanel>
+                        <ListBox x:Name="JobList" Grid.Row="1" SelectionMode="Single">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#1C2431" CornerRadius="10" Padding="16" Margin="0,0,0,6">
+                                        <StackPanel>
+                                            <DockPanel>
+                                                <TextBlock Text="{Binding State}" DockPanel.Dock="Right" Foreground="#70E0BC" Margin="10,0,0,0"/>
+                                                <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="16"/>
+                                            </DockPanel>
+                                            <TextBlock Text="{Binding Label}" Foreground="#91A1B8" Margin="0,4,0,8"/>
+                                            <ProgressBar Value="{Binding Progress}" Maximum="100" Height="3" Foreground="#70E0BC" Background="#313D50" BorderThickness="0"/>
+                                            <TextBlock Text="{Binding Detail}" Foreground="#AAB9CA" FontSize="12" Margin="0,9,0,0" TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                            <TextBlock Grid.Row="2" Text="O histórico guarda caminhos e links. Limpar o histórico não apaga seus arquivos." Style="{StaticResource Muted}" Margin="0,15,0,0"/>
+                    </Grid>
+                </TabItem>
+                <TabItem>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <Border Style="{StaticResource Card}">
+                                <StackPanel>
+                                    <TextBlock Text="Pastas monitoradas" Style="{StaticResource Section}"/>
+                                    <TextBlock Text="Novos arquivos são convertidos após a cópia terminar. A saída precisa ficar fora da pasta monitorada." Style="{StaticResource Muted}" Margin="0,0,0,16"/>
+                                    <TextBlock Text="Pasta de entrada"/>
+                                    <DockPanel Margin="0,8,0,12">
+                                        <Button Content="Escolher" DockPanel.Dock="Right" Click="ChooseWatchInput"/>
+                                        <TextBox x:Name="WatchInput"/>
+                                    </DockPanel>
+                                    <TextBlock Text="Pasta de saída"/>
+                                    <DockPanel Margin="0,8,0,12">
+                                        <Button Content="Escolher" DockPanel.Dock="Right" Click="ChooseWatchOutput"/>
+                                        <TextBox x:Name="WatchOutput"/>
+                                    </DockPanel>
+                                    <TextBlock Text="Formato de destino"/>
+                                    <ComboBox x:Name="WatchTarget" Margin="0,8,0,16"/>
+                                    <Button Content="Adicionar monitoramento" Click="AddWatch" HorizontalAlignment="Left"/>
+                                </StackPanel>
+                            </Border>
+                            <ListBox x:Name="WatchList" Height="140"/>
+                            <Button Content="Remover monitoramento selecionado" Click="RemoveWatch" HorizontalAlignment="Left" Margin="0,12,0,0"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <Border Style="{StaticResource Card}">
+                                <StackPanel>
+                                    <TextBlock Text="Preferências" Style="{StaticResource Section}"/>
+                                    <TextBlock Text="Pasta de saída padrão (vazia = ao lado do original)"/>
+                                    <DockPanel Margin="0,8,0,16">
+                                        <Button Content="Escolher" DockPanel.Dock="Right" Click="ChooseOutput"/>
+                                        <TextBox x:Name="OutputDirectory"/>
+                                    </DockPanel>
+                                    <TextBlock Text="Qualidade de imagens e mídia"/>
+                                    <DockPanel Margin="0,10,0,12">
+                                        <TextBlock Text="{Binding ElementName=Quality,Path=Value,StringFormat={}{0:0}%}" DockPanel.Dock="Right" Width="42"/>
+                                        <Slider x:Name="Quality" Minimum="1" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                                    </DockPanel>
+                                    <CheckBox x:Name="AutoStart" Content="Iniciar discretamente com o Windows"/>
+                                    <TextBlock Text="O X mantém o Conversor na bandeja, ao lado do relógio. Para encerrar, clique com o botão direito no ícone e escolha Sair." Style="{StaticResource Muted}" Margin="0,0,0,8"/>
+                                    <CheckBox x:Name="EnableGesture" Content="Ativar o menu circular ao arrastar"/>
+                                    <DockPanel Margin="0,8,0,16">
+                                        <TextBlock Text="Tecla do menu" VerticalAlignment="Center" Width="140"/>
+                                        <ComboBox x:Name="ModifierKey" Width="180" HorizontalAlignment="Left"/>
+                                    </DockPanel>
+                                    <Button Content="Salvar preferências" Click="SaveSettings" HorizontalAlignment="Left"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Style="{StaticResource Card}">
+                                <StackPanel>
+                                    <TextBlock Text="Componentes de conversão" Style="{StaticResource Section}"/>
+                                    <TextBlock x:Name="EngineStatus" Style="{StaticResource Muted}"/>
+                                    <TextBlock Text="Os componentes são preparados na instalação. Nenhum arquivo é enviado para conversão online." Style="{StaticResource Muted}" Margin="0,15,0,0"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <Border Style="{StaticResource Card}">
+                                <StackPanel>
+                                    <TextBlock Text="YouTube · Instagram · TikTok" Style="{StaticResource Section}"/>
+                                    <TextBlock Text="Cole um link público para consultar os formatos disponíveis." Style="{StaticResource Muted}" Margin="0,0,0,16"/>
+                                    <TextBlock Text="Link do vídeo ou playlist"/>
+                                    <TextBox x:Name="DownloadUrl" Margin="0,8,0,12" TextChanged="DownloadLinkChanged" ToolTip="https://..."/>
+                                    <CheckBox x:Name="DownloadPlaylist" Content="Baixar a playlist ou coleção inteira" Checked="DownloadPlaylistChanged" Unchecked="DownloadPlaylistChanged"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0,6,0,16">
+                                        <Button x:Name="AnalyzeDownloadButton" Content="Consultar link" Click="AnalyzeDownloadLink"/>
+                                        <Button x:Name="CancelAnalysisButton" Content="Cancelar consulta" Click="CancelDownloadAnalysis" Visibility="Collapsed"/>
+                                    </StackPanel>
+                                    <Border Background="#121A25" CornerRadius="9" Padding="15" Margin="0,0,0,18">
+                                        <StackPanel>
+                                            <TextBlock x:Name="DownloadMediaTitle" Text="Nenhum link consultado" FontWeight="SemiBold" FontSize="16"/>
+                                            <TextBlock x:Name="DownloadMediaDetails" Text="A consulta mostra a duração, a plataforma e as qualidades oferecidas." Style="{StaticResource Muted}" Margin="0,6,0,0"/>
+                                        </StackPanel>
+                                    </Border>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="16"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel>
+                                            <TextBlock Text="O que baixar" Margin="0,0,0,8"/>
+                                            <ComboBox x:Name="DownloadMode" SelectionChanged="DownloadModeChanged"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2">
+                                            <TextBlock Text="Formato do arquivo" Margin="0,0,0,8"/>
+                                            <ComboBox x:Name="DownloadFormat" SelectionChanged="DownloadFormatChanged"/>
+                                        </StackPanel>
+                                    </Grid>
+                                    <TextBlock Text="Qualidade" Margin="0,16,0,8"/>
+                                    <ComboBox x:Name="DownloadQuality"/>
+                                    <TextBlock x:Name="DownloadQualityHint" Style="{StaticResource Muted}" Margin="0,8,0,16" Text="A qualidade depende dos formatos disponíveis no link."/>
+                                    <TextBlock Text="Salvar em"/>
+                                    <DockPanel Margin="0,8,0,18">
+                                        <Button Content="Escolher" DockPanel.Dock="Right" Click="ChooseDownloadDirectory"/>
+                                        <TextBox x:Name="DownloadOutputDirectory"/>
+                                    </DockPanel>
+                                    <Button x:Name="DownloadButton" Content="Adicionar download à fila  →" Click="QueueMediaDownload" IsEnabled="False" Background="{StaticResource Accent}" Foreground="#10251F" FontWeight="SemiBold" HorizontalAlignment="Left"/>
+                                </StackPanel>
+                            </Border>
+                            <TextBlock Text="Downloads usam a internet e aparecem no Histórico, com progresso, cancelamento e abertura dos resultados. Playlists dependem do que cada plataforma disponibiliza. Os itens já salvos são preservados se houver falha ou cancelamento." Style="{StaticResource Muted}"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <Border Style="{StaticResource Card}">
+                                <StackPanel>
+                                    <TextBlock Text="Imagens e vídeos" Style="{StaticResource Section}"/>
+                                    <TextBlock Text="Solte arquivos nesta aba ou adicione pelo botão. Cada arquivo gera uma cópia; uma falha não interrompe os demais." Style="{StaticResource Muted}" Margin="0,0,0,12"/>
+                                    <WrapPanel Margin="0,0,0,12">
+                                        <Button Content="＋ Adicionar arquivos" Click="AddResizeFiles"/>
+                                        <Button Content="Usar seleção do Conversor" Click="UseConversionSelection"/>
+                                        <Button Content="Remover" Click="RemoveResizeFiles"/>
+                                    </WrapPanel>
+                                    <ListBox x:Name="ResizeFiles" Height="88" SelectionMode="Extended" SelectionChanged="ResizeSelectionChanged"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Style="{StaticResource Card}">
+                                <StackPanel>
+                                    <TextBlock Text="Tamanho e enquadramento" Style="{StaticResource Section}"/>
+                                    <ComboBox x:Name="ResizePreset" SelectionChanged="ResizePresetChanged" Margin="0,0,0,12"/>
+                                    <Grid Margin="0,0,0,12">
+                                        <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="16"/><ColumnDefinition/><ColumnDefinition Width="16"/><ColumnDefinition Width="2*"/></Grid.ColumnDefinitions>
+                                        <StackPanel><TextBlock Text="Largura (px)" Margin="0,0,0,6"/><TextBox x:Name="ResizeWidth" Text="1080" TextChanged="ResizeOptionChanged"/></StackPanel>
+                                        <StackPanel Grid.Column="2"><TextBlock Text="Altura (px)" Margin="0,0,0,6"/><TextBox x:Name="ResizeHeight" Text="1920" TextChanged="ResizeOptionChanged"/></StackPanel>
+                                        <StackPanel Grid.Column="4"><TextBlock Text="Proporção personalizada" Margin="0,0,0,6"/><DockPanel><Button DockPanel.Dock="Right" Content="Aplicar" Click="ApplyResizeRatio" Margin="8,0,0,0"/><TextBox x:Name="ResizeRatio" Text="9:16" ToolTip="Ex.: 9:16, 16:9 ou 3:2. Aplicar calcula a altura a partir da largura."/></DockPanel></StackPanel>
+                                    </Grid>
+                                    <Grid Margin="0,0,0,14">
+                                        <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="16"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                        <StackPanel><TextBlock Text="Ajuste" Margin="0,0,0,6"/><ComboBox x:Name="ResizeFit" SelectionChanged="ResizeOptionChanged"/></StackPanel>
+                                        <StackPanel Grid.Column="2"><TextBlock Text="Posição do recorte" Margin="0,0,0,6"/><ComboBox x:Name="ResizeAnchor" SelectionChanged="ResizeOptionChanged"/></StackPanel>
+                                    </Grid>
+                                    <TextBlock Text="Preencher remove bordas sem deformar. Manter tudo usa faixas pretas e preserva o enquadramento inteiro. Edite largura e altura livremente; vídeos exigem números pares." Style="{StaticResource Muted}" Margin="0,0,0,14"/>
+                                    <Border Background="#101720" CornerRadius="9" Padding="10" Margin="0,0,0,10">
+                                        <Image x:Name="ResizePreview" Height="220" Stretch="Uniform"/>
+                                    </Border>
+                                    <TextBlock x:Name="ResizePreviewInfo" Text="Selecione um arquivo e clique em Atualizar prévia. Vídeos mostram o primeiro quadro; GIF/TIFF usam a primeira imagem." Style="{StaticResource Muted}" Margin="0,0,0,10"/>
+                                    <Button x:Name="PreviewResizeButton" Content="Atualizar prévia" Click="PreviewResize" HorizontalAlignment="Left"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Style="{StaticResource Card}">
+                                <StackPanel>
+                                    <Grid Margin="0,0,0,14">
+                                        <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="16"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                        <StackPanel><TextBlock Text="Formato das imagens" Margin="0,0,0,6"/><ComboBox x:Name="ResizeImageFormat" SelectionChanged="ResizeOptionChanged"/></StackPanel>
+                                        <StackPanel Grid.Column="2"><TextBlock Text="Formato dos vídeos" Margin="0,0,0,6"/><ComboBox x:Name="ResizeVideoFormat" SelectionChanged="ResizeOptionChanged"/></StackPanel>
+                                    </Grid>
+                                    <TextBlock Text="Pasta de saída (vazio = ao lado de cada original)" Margin="0,0,0,6"/>
+                                    <DockPanel Margin="0,0,0,14"><Button DockPanel.Dock="Right" Content="Escolher" Click="ChooseResizeDirectory" Margin="8,0,0,0"/><TextBox x:Name="ResizeOutput"/></DockPanel>
+                                    <Button Content="Redimensionar arquivos  →" Click="QueueResize" Background="{StaticResource Accent}" Foreground="#10251F" FontWeight="SemiBold" HorizontalAlignment="Left"/>
+                                    <TextBlock Text="O áudio e a duração dos vídeos são mantidos. Vídeos são reencodados; legendas e faixas de dados não são copiadas. GIF/TIFF com várias imagens usam somente a primeira. Resultados e cancelamento ficam no Histórico." Style="{StaticResource Muted}" Margin="0,12,0,0"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+            </TabControl>
+            <TextBlock x:Name="StatusText" Grid.Row="2" Text="Pronto para receber arquivos" Foreground="#91A1B8" Margin="0,14,0,0"/>
+        </Grid>
+    </Grid>
+</Window>
